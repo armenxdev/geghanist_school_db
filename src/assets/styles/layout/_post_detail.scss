@@ -1,0 +1,178 @@
+@use "../base/variables" as *;
+
+// ═══════════════════════════════════════════════════════════
+//  Post Detail  (.post-detail, .pd-*)
+// ═══════════════════════════════════════════════════════════
+
+// ── Back row ──
+.post-detail__back-row {
+  padding: $space-6 0 $space-4;
+}
+
+.pd-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-ink-muted;
+  transition: color $duration-fast $ease-out;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:hover { color: $color-accent; }
+}
+
+// ── Article wrapper ──
+.post-detail {
+  background: $color-surface;
+  border: $border-width $border-style $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  margin-bottom: $space-6;
+
+  &--skeleton { pointer-events: none; }
+
+  // ── Media block ──
+  &__media {
+    // Stretch slider to card edge, no rounded top corners from slider
+    .ms__viewport { border-radius: 0; }
+    .ms {
+      gap: 0;
+      // thumbnail strip gets a small indent
+      .ms__thumbs { padding: $space-3 $space-4 $space-3; }
+    }
+  }
+
+  // ── Text content ──
+  &__content {
+    padding: $space-8 clamp($space-6, 5vw, $space-12);
+
+    @include respond-below($bp-md) { padding: $space-6 $space-5; }
+  }
+
+  // ── Meta row ──
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    flex-wrap: wrap;
+  }
+
+  // ── Title ──
+  &__title {
+    font-family: $font-display;
+    font-size: clamp($font-size-xl, 3.5vw, $font-size-3xl);
+    font-weight: $font-weight-bold;
+    color: $color-ink;
+    line-height: $line-height-tight;
+    letter-spacing: $letter-spacing-tight;
+    margin-bottom: $space-5;
+  }
+
+  // ── Divider ──
+  &__divider {
+    height: 1px;
+    background: $color-border;
+    margin-bottom: $space-6;
+  }
+
+  // ── Body text ──
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+
+    p {
+      font-family: $font-body;
+      font-size: $font-size-md;
+      color: $color-ink;
+      line-height: $line-height-loose;
+    }
+  }
+
+  &__empty-content {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-faint;
+    font-style: italic;
+  }
+
+  // ── Footer nav ──
+  &__footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-4 0 $space-12;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+
+  // ── 404 / error state ──
+  &__not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-4;
+    padding: $space-20 $space-6;
+    text-align: center;
+  }
+
+  &__not-found-text {
+    font-family: $font-body;
+    font-size: $font-size-base;
+    color: $color-ink-muted;
+  }
+}
+
+// ── Type badge ──
+.pd-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-wider;
+  text-transform: uppercase;
+
+  &--news          { background: $color-accent-soft; color: $color-accent-dark; }
+  &--events        { background: rgba(45, 138, 94, .1); color: #1a6b45; }
+  &--announcements { background: rgba(217, 79, 61, .1); color: $color-error; }
+}
+
+// ── Date ──
+.pd-date {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-ink-faint;
+  font-weight: $font-weight-medium;
+}
+
+// ── Media count chip ──
+.pd-media-count {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  color: $color-ink-muted;
+  font-weight: $font-weight-medium;
+}
+
+// ── "More of this type" link ──
+.pd-type-link {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-accent;
+  transition: color $duration-fast $ease-out;
+
+  &:hover { color: $color-accent-dark; }
+}

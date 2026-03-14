@@ -1,0 +1,214 @@
+@use './variables' as *;
+@use './sidebar';
+@use './admin_header';
+
+// ══════════════════════════════════════════════════════════
+//  Reset
+// ══════════════════════════════════════════════════════════
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: $color-text;
+  background: $color-bg;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input  { font-family: inherit; }
+a      { text-decoration: none; color: inherit; }
+
+
+// ══════════════════════════════════════════════════════════
+//  Admin layout
+// ══════════════════════════════════════════════════════════
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+
+  &__body {
+    flex: 1;
+    margin-left: $sidebar-width;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    @media (max-width: 768px) { margin-left: 0; }
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &__overlay {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      z-index: 99;
+      animation: fadeIn 0.15s ease;
+    }
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  Page wrapper
+// ══════════════════════════════════════════════════════════
+
+.page {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 28px) clamp(16px, 3vw, 32px);
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  Buttons
+// ══════════════════════════════════════════════════════════
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  border-radius: $radius-sm;
+  font-size: 13.5px; font-weight: 500;
+  transition: background $transition, color $transition, box-shadow $transition;
+  white-space: nowrap;
+
+  &:disabled { opacity: .55; pointer-events: none; }
+
+  &--primary {
+    background: $color-accent; color: #fff;
+    box-shadow: 0 1px 4px rgba(59, 130, 246, .3);
+    &:hover { background: $color-accent-hover; }
+  }
+  &--ghost {
+    background: $color-bg; color: $color-text-muted;
+    border: 1px solid $color-border;
+    &:hover { background: darken($color-bg, 3%); color: $color-text; }
+  }
+  &--danger {
+    background: $color-danger; color: #fff;
+    box-shadow: 0 1px 4px rgba(239, 68, 68, .3);
+    &:hover { background: $color-danger-hover; }
+  }
+  &--sm      { padding: 5px 10px; font-size: 12.5px; }
+  &--full    { width: 100%; justify-content: center; }
+  &--secondary {
+    color: $color-accent; background: rgba(59, 130, 246, .08);
+    &:hover { background: rgba(59, 130, 246, .16); }
+  }
+}
+
+.action-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px;
+  border-radius: $radius-sm;
+  font-size: 12.5px; font-weight: 500;
+  transition: background $transition, color $transition;
+
+  &:disabled { opacity: .45; pointer-events: none; }
+  &--edit   { color: $color-accent; background: rgba(59,130,246,.08); &:hover { background: rgba(59,130,246,.16); } }
+  &--delete { color: $color-danger; background: $color-danger-bg;     &:hover { background: darken($color-danger-bg,4%); } }
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  Form utilities
+// ══════════════════════════════════════════════════════════
+
+.search-box {
+  position: relative;
+  flex: 1; max-width: 320px;
+
+  @media (max-width: 480px) { max-width: 100%; }
+
+  &__icon {
+    position: absolute; left: 11px; top: 50%;
+    transform: translateY(-50%);
+    color: $color-text-muted; pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border: 1px solid $color-border; border-radius: $radius-sm;
+    background: $color-surface; color: $color-text;
+    font-size: 13.5px; outline: none;
+    transition: border-color $transition, box-shadow $transition;
+
+    &::placeholder { color: #94a3b8; }
+    &:focus { border-color: $color-accent; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+  }
+}
+
+.form-field {
+  margin-bottom: 18px;
+
+  &__label { display: block; font-size: 13px; font-weight: 500; color: $color-text; margin-bottom: 6px; }
+  &__required { color: $color-danger; margin-left: 3px; }
+
+  &__input {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid $color-border; border-radius: $radius-sm;
+    background: $color-surface; color: $color-text;
+    font-size: 13.5px; font-family: inherit; outline: none;
+    transition: border-color $transition, box-shadow $transition;
+    resize: vertical;
+
+    &::placeholder { color: #94a3b8; }
+    &:focus { border-color: $color-accent; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+    &:disabled { opacity: .6; cursor: not-allowed; }
+  }
+
+  &__textarea { min-height: 80px; }
+
+  &--error &__input {
+    border-color: $color-danger;
+    &:focus { box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
+  }
+
+  &__error { display: block; font-size: 12px; color: $color-danger; margin-top: 5px; }
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  UI components
+// ══════════════════════════════════════════════════════════
+
+.empty-state {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 20px;
+  background: $color-surface; border: 1px solid $color-border;
+  border-radius: $radius-md; color: #94a3b8; gap: 12px; text-align: center;
+
+  p { font-size: 14px; }
+}
+
+.spinner {
+  display: inline-block; border-radius: 50%; border-style: solid;
+  border-color: $color-border; border-top-color: $color-accent;
+  animation: spin 0.65s linear infinite;
+  width: 20px; height: 20px; border-width: 2.5px;
+
+  &--sm { width: 14px; height: 14px; border-width: 2px; }
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  Keyframes
+// ══════════════════════════════════════════════════════════
+
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(6px);  } to { opacity: 1; transform: none; } }

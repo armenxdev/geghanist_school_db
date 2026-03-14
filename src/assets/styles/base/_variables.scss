@@ -1,0 +1,187 @@
+
+
+$color-bg:          #F7F6F3;       // warm off-white
+$color-bg-alt:      #EFEDE8;       // slightly darker warm tone
+$color-surface:     #FFFFFF;
+$color-border:      #E2DFD8;
+
+$color-ink:         #1A1917;       // near-black, warm
+$color-ink-muted:   #6B6760;       // muted secondary text
+$color-ink-faint:   #B0ADA6;       // placeholder / disabled
+
+$color-accent:      #2A5CE6;       // sharp blue accent
+$color-accent-dark: #1A3DAF;
+$color-accent-soft: #EEF2FD;       // tinted background
+
+$color-error:       #D94F3D;
+$color-success:     #2D8A5E;
+
+
+// ── Typography ─────────────────────────────
+
+// Import in core.css via @import url(...)
+$font-display:  'Fraunces', Georgia, serif;     // editorial, characterful
+$font-body:     'DM Sans', Helvetica, sans-serif;
+$font-mono:     'JetBrains Mono', monospace;
+
+$font-size-xs:   0.75rem;    // 12px
+$font-size-sm:   0.875rem;   // 14px
+$font-size-base: 1rem;       // 16px
+$font-size-md:   1.125rem;   // 18px
+$font-size-lg:   1.375rem;   // 22px
+$font-size-xl:   1.75rem;    // 28px
+$font-size-2xl:  2.25rem;    // 36px
+$font-size-3xl:  3rem;       // 48px
+$font-size-4xl:  4rem;       // 64px
+
+$font-weight-regular: 400;
+$font-weight-medium:  500;
+$font-weight-semibold: 600;
+$font-weight-bold:    700;
+
+$line-height-tight:  1.15;
+$line-height-snug:   1.35;
+$line-height-base:   1.6;
+$line-height-loose:  1.8;
+
+$letter-spacing-tight: -0.03em;
+$letter-spacing-base:   0em;
+$letter-spacing-wide:   0.06em;
+$letter-spacing-wider:  0.12em;
+
+
+// ── Spacing ────────────────────────────────
+
+$space-1:   0.25rem;   //  4px
+$space-2:   0.5rem;    //  8px
+$space-3:   0.75rem;   // 12px
+$space-4:   1rem;      // 16px
+$space-5:   1.25rem;   // 20px
+$space-6:   1.5rem;    // 24px
+$space-8:   2rem;      // 32px
+$space-10:  2.5rem;    // 40px
+$space-12:  3rem;      // 48px
+$space-16:  4rem;      // 64px
+$space-20:  5rem;      // 80px
+$space-24:  6rem;      // 96px
+$space-32:  8rem;      // 128px
+
+
+// ── Layout ─────────────────────────────────
+
+$container-sm:   640px;
+$container-md:   768px;
+$container-lg:   1024px;
+$container-xl:   1200px;
+$container-2xl:  1440px;
+
+$container-padding-x:       clamp(1.25rem, 4vw, 2.5rem);
+$container-padding-x-wide:  clamp(1.5rem, 5vw, 4rem);
+
+$header-height:    64px;
+$footer-min-height: 200px;
+
+
+// ── Borders & Radius ───────────────────────
+
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   20px;
+$radius-full: 9999px;
+
+$border-width:      1px;
+$border-style:      solid;
+$border-color:      $color-border;
+$border:            $border-width $border-style $border-color;
+
+
+// ── Shadows ────────────────────────────────
+
+$shadow-xs:  0 1px 2px rgba(26, 25, 23, 0.06);
+$shadow-sm:  0 2px 8px rgba(26, 25, 23, 0.08);
+$shadow-md:  0 4px 20px rgba(26, 25, 23, 0.10);
+$shadow-lg:  0 12px 40px rgba(26, 25, 23, 0.12);
+$shadow-xl:  0 24px 64px rgba(26, 25, 23, 0.14);
+
+
+// ── Z-index ────────────────────────────────
+
+$z-below:    -1;
+$z-base:      0;
+$z-above:     1;
+$z-dropdown: 100;
+$z-sticky:   200;
+$z-overlay:  300;
+$z-modal:    400;
+$z-toast:    500;
+
+
+// ── Transitions ────────────────────────────
+
+$ease-out:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-in:    cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-inout: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+$duration-fast:   150ms;
+$duration-base:   250ms;
+$duration-slow:   400ms;
+$duration-slower: 600ms;
+
+
+// ── Breakpoints (for use with mixins) ──────
+
+$bp-xs:  480px;
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1536px;
+
+
+// ── Mixins ─────────────────────────────────
+
+@mixin respond-to($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin respond-below($bp) {
+  @media (max-width: calc($bp - 1px)) {
+    @content;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $container-xl;
+  margin-inline: auto;
+  padding-inline: $container-padding-x;
+}
+
+@mixin container-wide {
+  width: 100%;
+  max-width: $container-2xl;
+  margin-inline: auto;
+  padding-inline: $container-padding-x-wide;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

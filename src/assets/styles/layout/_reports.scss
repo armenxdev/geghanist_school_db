@@ -1,0 +1,351 @@
+@use "../base/variables" as *;
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 1; }
+}
+
+// ── Page ───────────────────────────────────────────────────
+.reports-public {
+  padding-block: $space-12 $space-20;
+}
+
+// ── Page header ────────────────────────────────────────────
+.reports-public__header {
+  margin-bottom: $space-10;
+
+  @include respond-below($bp-md) {
+    margin-bottom: $space-8;
+  }
+}
+
+.reports-public__label {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-accent;
+  margin-bottom: $space-3;
+}
+
+.reports-public__title {
+  font-family: $font-display;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: $font-weight-regular;
+  color: $color-ink;
+  letter-spacing: $letter-spacing-tight;
+  line-height: $line-height-tight;
+  margin-bottom: $space-3;
+}
+
+.reports-public__desc {
+  font-size: $font-size-sm;
+  color: $color-ink-muted;
+  max-width: 52ch;
+  line-height: $line-height-loose;
+}
+
+// ── Filters ────────────────────────────────────────────────
+.reports-public__filters {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-6;
+  flex-wrap: wrap;
+
+  @include respond-below($bp-sm) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.reports-public__search {
+  position: relative;
+  flex: 1 1 260px;
+  max-width: 380px;
+
+  @include respond-below($bp-sm) {
+    max-width: 100%;
+  }
+
+  &-icon {
+    position: absolute;
+    left: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-ink-faint;
+    pointer-events: none;
+    display: flex;
+  }
+
+  &-input {
+    width: 100%;
+    padding: $space-3 $space-4 $space-3 $space-8;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    background: $color-surface;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    outline: none;
+    transition: border-color $duration-fast $ease-out,
+    box-shadow   $duration-fast $ease-out;
+
+    &::placeholder { color: $color-ink-faint; }
+
+    &:focus {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 3px rgba(42, 92, 230, 0.12);
+    }
+  }
+}
+
+.reports-public__count {
+  font-size: $font-size-sm;
+  color: $color-ink-faint;
+  font-family: $font-mono;
+  white-space: nowrap;
+  margin-left: auto;
+
+  @include respond-below($bp-sm) {
+    margin-left: 0;
+  }
+
+  strong {
+    color: $color-ink-muted;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+// ── Grid ───────────────────────────────────────────────────
+.reports-public__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $space-4;
+
+  @include respond-below($bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Card ───────────────────────────────────────────────────
+.report-card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  cursor: pointer;
+  transition: border-color $duration-base $ease-out,
+  box-shadow   $duration-base $ease-out,
+  transform    $duration-base $ease-out;
+  animation: fadeUp 0.25s ease both;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    border-color: $color-accent;
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-sm;
+  }
+
+  // ── Icon area ──
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-md;
+    background: $color-accent-soft;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-accent;
+    flex-shrink: 0;
+    transition: background $duration-fast $ease-out;
+  }
+
+  &:hover &__icon {
+    background: rgba(42, 92, 230, 0.15);
+  }
+
+  // ── Body ──
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__title {
+    font-family: $font-body;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-ink;
+    line-height: $line-height-snug;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &__date {
+    font-size: $font-size-xs;
+    color: $color-ink-faint;
+    font-family: $font-mono;
+    margin-top: $space-1;
+  }
+
+  // ── Footer ──
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $space-4;
+    border-top: 1px solid $color-border;
+  }
+
+  &__type {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $font-size-xs;
+    font-family: $font-mono;
+    color: $color-ink-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+  }
+
+  &__open {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+    transition: gap $duration-fast $ease-out;
+  }
+
+  &:hover &__open {
+    gap: $space-2;
+  }
+}
+
+// ── Skeleton cards ─────────────────────────────────────────
+.report-card--skeleton {
+  pointer-events: none;
+  cursor: default;
+
+  &:hover {
+    border-color: $color-border;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.skeleton-line {
+  border-radius: $radius-sm;
+  background: $color-bg-alt;
+  animation: pulse 1.4s ease infinite;
+
+  &--icon  { width: 44px; height: 44px; border-radius: $radius-md; }
+  &--title { height: 14px; width: 75%; }
+  &--title-sm { height: 14px; width: 50%; margin-top: $space-2; }
+  &--date  { height: 10px; width: 40%; margin-top: $space-2; }
+  &--foot  { height: 10px; width: 30%; }
+}
+
+// ── Empty state ────────────────────────────────────────────
+.reports-public__empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-4;
+  padding: $space-16 $space-8;
+  text-align: center;
+  color: $color-ink-faint;
+
+  &-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-xl;
+    background: $color-bg-alt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-ink-faint;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-ink-faint;
+    max-width: 28ch;
+  }
+}
+
+// ── Load more ──────────────────────────────────────────────
+.reports-public__load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: $space-10;
+}
+
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-8;
+  border: 1px solid $color-border;
+  border-radius: $radius-full;
+  background: $color-surface;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-ink-muted;
+  cursor: pointer;
+  transition: border-color $duration-fast $ease-out,
+  color        $duration-fast $ease-out,
+  box-shadow   $duration-fast $ease-out;
+
+  &:hover {
+    border-color: $color-accent;
+    color: $color-accent;
+    box-shadow: $shadow-xs;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  // spinner inside button
+  &__spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid $color-border;
+    border-top-color: $color-accent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

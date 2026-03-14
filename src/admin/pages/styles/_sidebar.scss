@@ -1,0 +1,101 @@
+@use './variables' as *;
+
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: $sidebar-width;
+  background: $color-sidebar-bg;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (min-width: 769px) {
+    transform: translateX(0) !important; // always visible, no animation
+  }
+
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, .3);
+
+    &--open { transform: translateX(0); }
+  }
+
+  // ── Brand ──────────────────────────────────────────────
+  &__brand {
+    display: flex; align-items: center; gap: 10px;
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    flex-shrink: 0;
+  }
+
+  &__brand-icon {
+    width: 36px; height: 36px;
+    background: $color-accent; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+  }
+
+  &__brand-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+  &__brand-name {
+    font-size: 12.5px; font-weight: 700; color: $color-sidebar-active;
+    line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  &__brand-sub {
+    font-size: 11px; color: $color-sidebar-text; letter-spacing: 0.4px;
+  }
+
+  // ── Nav ────────────────────────────────────────────────
+  &__nav {
+    flex: 1; padding: 16px 10px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  &__nav-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: $color-sidebar-text;
+    padding: 0 8px 8px; opacity: 0.6;
+  }
+
+  &__nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 7px;
+    color: $color-sidebar-text; font-size: 13.5px; font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover { background: $color-sidebar-hover; color: $color-sidebar-active; }
+
+    &--active {
+      background: rgba($color-accent, 0.2);
+      color: #fff;
+      .sidebar__nav-icon { color: $color-accent; }
+    }
+  }
+
+  &__nav-icon {
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: $color-sidebar-text; transition: color 0.15s ease;
+  }
+
+  &__nav-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  // ── Footer ─────────────────────────────────────────────
+  &__footer {
+    padding: 14px 10px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    flex-shrink: 0;
+  }
+
+  &__back-link {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px; border-radius: 7px;
+    color: $color-sidebar-text; font-size: 13px; font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover { background: $color-sidebar-hover; color: $color-sidebar-active; }
+  }
+}

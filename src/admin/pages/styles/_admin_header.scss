@@ -1,0 +1,63 @@
+@use './variables' as *;
+
+.admin-header {
+  height: $header-height;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  position: sticky; top: 0; z-index: 50;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) { padding: 0 14px; }
+
+  &__left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+  &__menu-btn {
+    display: none;
+    width: 36px; height: 36px;
+    align-items: center; justify-content: center;
+    border-radius: $radius-sm;
+    color: $color-text-muted; font-size: 18px; flex-shrink: 0;
+    transition: background 0.15s ease;
+
+    &:hover { background: $color-bg; }
+
+    @media (max-width: 768px) { display: flex; }
+  }
+
+  &__title {
+    font-size: 15px; font-weight: 700; color: $color-text;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+
+    @media (max-width: 480px) { font-size: 14px; }
+  }
+
+  &__right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+  &__profile-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 10px 5px 5px;
+    border-radius: 20px;
+    border: 1px solid $color-border;
+    background: $color-surface;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover { background: $color-bg; border-color: $color-accent; }
+  }
+
+  &__avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: $color-accent; color: #fff;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__fullname {
+    font-size: 13px; font-weight: 500; color: $color-text;
+    max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+
+    @media (max-width: 480px) { display: none; }
+  }
+}

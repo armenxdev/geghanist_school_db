@@ -1,0 +1,224 @@
+@use '../base/variables' as *;
+
+$blue:       #2A5CE6;
+$blue-dark:  #1A3DAF;
+$blue-soft:  #EEF2FD;
+$ink:        #1A1917;
+$ink-muted:  #6B6760;
+$ink-faint:  #B0ADA6;
+$bg:         #F7F6F3;
+$bg-alt:     #EFEDE8;
+$border:     #E2DFD8;
+$ease:       cubic-bezier(0.4, 0, 0.2, 1);
+
+.about-intro {
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  background: $bg;
+}
+
+.about-intro__title {
+  font-family: $font-display;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 300;
+  color: $ink;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  position: relative;
+  padding-bottom: 1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 40px; height: 3px;
+    border-radius: 3px;
+    background: $blue;
+  }
+}
+
+.about-intro__text {
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.8;
+  color: $ink-muted;
+  max-width: 72ch;
+
+  & + & { margin-top: 1rem; }
+}
+
+.school-info-section {
+  background: $bg-alt;
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(4rem, 9vw, 7rem);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: $border;
+  }
+}
+
+.school-info__title {
+  font-family: $font-display;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: $ink;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  line-height: 1.3;
+}
+
+.school-info__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+
+  @media (min-width: 640px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.school-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  background: #FFFFFF;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: border-color 220ms $ease, box-shadow 220ms $ease, transform 220ms $ease;
+
+  &:hover {
+    border-color: darken($border, 6%);
+    box-shadow: 0 4px 16px rgba(26,25,23,.07);
+    transform: translateY(-2px);
+  }
+
+  &--skeleton { pointer-events: none; }
+}
+
+.school-info__item-icon {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: $blue-soft;
+  display: flex; align-items: center; justify-content: center;
+
+  svg {
+    width: 16px; height: 16px;
+    color: $blue;
+    stroke: currentColor; fill: none;
+    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  }
+}
+
+.school-info__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.school-info__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $ink-faint;
+}
+
+.school-info__value {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: $ink;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.school-info__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+  text-align: center;
+  color: $ink-faint;
+
+  svg { opacity: 0.3; }
+
+  p {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+}
+
+.about-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: clamp(4rem, 10vw, 7rem) 1.5rem;
+  text-align: center;
+
+  &__icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: #FEF2F2;
+    display: flex; align-items: center; justify-content: center;
+    color: #EF4444;
+    flex-shrink: 0;
+  }
+
+  &__msg {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $ink-muted;
+    max-width: 36ch;
+    line-height: 1.6;
+  }
+
+  &__retry {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    background: $blue;
+    color: #FFFFFF;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 200ms $ease, transform 200ms $ease, box-shadow 200ms $ease;
+
+    &:hover {
+      background: $blue-dark;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(42,92,230,.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+}
+
+.skeleton-block {
+  background: linear-gradient(90deg, $border 25%, darken($border, 3%) 50%, $border 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.4s infinite;
+  border-radius: 6px;
+
+  &--title  { height: 36px; width: 60%; margin-bottom: 1.5rem; border-radius: 8px; }
+  &--text   { height: 14px; width: 80%; margin-bottom: 0.75rem; }
+  &--icon   { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; }
+  &--label  { height: 10px; width: 40%; }
+  &--value  { height: 14px; width: 70%; margin-top: 6px; }
+}
+
+@keyframes skel-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
