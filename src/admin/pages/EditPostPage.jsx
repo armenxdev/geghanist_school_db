@@ -3,8 +3,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../api/axios.js";
 import TypeSelector from "../components/TypeSelector.jsx";
-import MediaUploader from "../components/MediaUploader";
-import MediaPreviewList from "../components/MediaPreviewList";
+import MediaUploader from "../components/Mediauploader.jsx";
+import MediaPreviewList from "../components/Mediapreviewlist.jsx";
 import FormInput from "../components/FormInput.jsx";
 
 const validate = (fields) => {
